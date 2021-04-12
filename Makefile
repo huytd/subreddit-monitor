@@ -1,5 +1,5 @@
 FLAGS=--allow-env --allow-read --allow-write --allow-net
-
+PARAM=$@
 run:
 	deno run ${FLAGS} main.ts
 

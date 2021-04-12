@@ -1,9 +1,9 @@
 import { cron } from 'https://deno.land/x/deno_cron/cron.ts';
 import { dataCollector } from "./src/collector.ts";
-import { setupDB } from "./src/db/migration.ts";
+import { migration } from "./src/db/migration.ts";
 import { startServer } from "./src/server.ts";
 
-setupDB();
+migration();
 
 cron('1 */15 * * * *', dataCollector);
 dataCollector();

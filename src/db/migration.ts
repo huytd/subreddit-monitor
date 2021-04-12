@@ -1,12 +1,11 @@
 import { DB } from "https://deno.land/x/sqlite/mod.ts";
 import { openDB, closeDB } from "./db.ts";
-import { addSubreddit } from "./logic.ts";
 
 const SUBREDDITS = [
   "javascript", "rust", "react", "vim", "emacs", "vscode", "sideproject", "selfhosted", "programming"
 ];
 
-export const setupDB = () => {
+export const migration = () => {
   const [ret, error] = openDB();
   if (error !== null) {
     console.error("Error opening database", error);
@@ -22,7 +21,7 @@ export const setupDB = () => {
     )`);
 
   for (const subreddit of SUBREDDITS) {
-    addSubreddit(db, subreddit);
+    db.query("INSERT OR IGNORE INTO subreddits (name) VALUES (?)", [subreddit]);
   }
 
   db.query(
