@@ -3,6 +3,14 @@ import { dataCollector } from "./src/collector.ts";
 import { migration } from "./src/db/migration.ts";
 import { startServer } from "./src/server.ts";
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [key: string]: any;
+    }
+  }
+}
+
 migration();
 
 cron('1 */15 * * * *', dataCollector);
